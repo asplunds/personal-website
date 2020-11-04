@@ -1,0 +1,132 @@
+@import "config";
+
+.header-close-button {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 100;
+}
+
+header {
+	$width: 300px;
+
+	flex: none;
+	width: $width;
+	max-width: $width;
+	position: relative;
+	transition: width .3s cubic-bezier(.45,-0.04,.2,1);
+
+	
+	& .header-fixed {
+		width: $width;
+		position: fixed;
+		height: 100%;
+		width: inherit;
+		max-width: inherit;
+		background: $background-color-2;
+		box-shadow: 0 0 20px $background-color-2;
+		z-index: 100;
+		overflow: hidden;
+
+		& .header-container {
+			width: $width;
+			position: absolute;
+			right: 0;
+			height: 100%;
+			top: 0;
+		}
+	}
+	& .menu-header {
+		text-align: center;
+	}
+	& .header-item {
+
+		--padding: 15px;
+		position: relative;
+		overflow: hidden;
+		color: $color;
+		transition: none;
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 4px;
+			background: $theme-color;
+			height: 100%;
+			transform: translateX(-100%);
+			transition: transform .1s ease-out;
+		}
+
+		
+		&:hover::before, &.header-item-active::before {
+
+			transform: translateX(0);
+
+		}
+		&:hover {
+			@include background-opacity($color, .05);
+
+			& .header-icon i {
+				color: $theme-color;
+			}
+			
+		}
+
+		& .header-item-flex {
+			display: flex;
+			position: relative;
+			width: 100%;
+			
+		}
+		&.slim-header-item {
+			--padding: 10px 10px;
+		}
+
+		& .header-item-icon, & .header-item-text {
+			padding: var(--padding);
+		}
+
+		& .header-item-icon {
+			padding: var(--padding);
+			padding-top: 0;
+			padding-bottom: 0;
+			width: 60px;
+			font-size: 23px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex: none;
+		}
+		& .header-item-text {
+			flex: 1;
+			text-align: left;
+		}
+
+	}
+
+	& .header-under-text {
+		font-size: 16px;
+	}
+
+	&.header-menu-closed {
+		width: 0;
+	}
+
+}
+
+.x-alerts {
+	z-index: 999;
+}
+
+@media screen and (max-width: 1000px) {
+
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 100;
+	}
+
+}
+

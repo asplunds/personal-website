@@ -1,0 +1,21 @@
+.come-in {
+
+	opacity: 0;
+
+	transition: all .3s ease-out;
+	position: relative;
+	transform: translateY(50px);
+
+
+	&.come-in-entering {
+		transform: translateY(0);
+		opacity: 1;
+
+	}
+	&.come-in-entered {
+		transform: translateY(0);
+		opacity: 1;
+
+	}
+}
+

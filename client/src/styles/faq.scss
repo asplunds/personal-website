@@ -1,0 +1,146 @@
+
+@import "config";
+
+.faq-list {
+    padding-top: 80px;
+}
+@media (hover: hover) {
+
+    .faq-list:hover {
+        & .faq-item:not(:hover) {
+            & .faq-item-inner {
+                background: lighten($background-color-2, 2%);
+            }
+            
+            transform: translateX(40px);
+            transition: height .2s ease-out, transform .1s ease-out;
+        }
+        & .faq-item {
+            transition-delay: 0s !important;
+            & .faq-item-inner {
+                transition: box-shadow .2s ease-in, margin .2s, max-height .2s ease-out, background-color .2s ease-out !important;
+            }
+        }
+    }
+}
+
+.faq-item {
+
+    
+    position: relative;
+
+    
+    background: inherit;
+
+    height: calc(var(--header-height) + 40px);
+
+    transition: height .2s ease-out, transform .2s ease-out;
+
+    & .faq-item-inner {
+        --border-radius: 20px;
+        position: absolute;
+        /* top: 0; */
+        /* left: 0; */
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        max-height: 180px;
+        //border-left: 1px solid $theme-color;
+        //box-shadow: 0 -4px 8px -2px $box-shadow-color;
+        width: 100%;
+        background: lighten($background-color-2, 2%);
+        transition: box-shadow .2s ease-in, margin .2s, max-height .2s ease-out, background-color .2s ease-out;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transform: rotate(0deg);
+            transform-origin: top;
+            left: 0;
+            transition: transform .2s ease-out, background-color .2s ease-out;
+            pointer-events: none;
+            width: 6px;
+            background: $background-color-2;
+        }
+
+        
+        & .faq-item-hider {
+            position: relative;
+            border-radius: var(--border-radius);
+        }
+    }
+
+    
+
+    &:hover {
+        height: calc(var(--total-height) + 60px);
+        
+        .faq-item-inner::before {
+            transform: rotate(0);
+            background: $theme-color;
+        }
+        & .faq-item-inner {
+            background: $background-color-2;
+            max-height: calc(var(--total-height) + 60px);
+            transition-delay: 0s !important;
+            box-shadow: 0 0px 30px $box-shadow-color;
+        }
+
+        & .underline.short-underline::before {
+            width: 50px;
+        }
+
+        & + * {
+            transform: translateX(22px) translateY(0) !important;
+            transition: height .2s ease-out, transform .2s ease-out;
+        }
+    }
+    
+}
+
+
+@for $i from 0 through 30 {
+    .faq-item:nth-child(#{$i}) {
+        $shift: $i * -6px;
+        z-index: #{$i};
+        transition-delay: #{$i * 0.07s};
+        //width: calc(100% - #{$i * 2px});
+        //transform: translateX(#{$i * 5px});
+        
+        & .faq-item-inner {
+            
+            margin-left: $shift;
+            padding-left: 20px + $shift * -1;
+            transition: box-shadow .2s ease-in, margin .2s, max-height .2s ease-out #{$i * 0.07s}, background-color .2s ease-out;
+            &::before {
+                //width: $shift;
+                background: adjust-hue($theme-color, ($i - 1) * 60deg);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .faq-item .faq-item-inner {
+        margin-left: 0 !important;
+        padding-left: 20px !important;
+    }
+}
+
+
+.hide-on-touch {
+    display: inline;
+}
+.hide-on-pointer {
+    display: none;
+}
+@media (pointer: coarse) {
+    .hide-on-touch {
+        display: none;
+    }
+    .hide-on-pointer {
+        display: inline;
+    }
+}

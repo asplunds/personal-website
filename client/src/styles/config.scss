@@ -1,0 +1,25 @@
+$background-color: #282a30;
+$background-color-2: #1c1e22;
+$background-color-3: #111;
+
+$color: #ccc;
+$color-2: #fff;
+
+$border-radius: 20px;
+
+$box-shadow-color: #1c1c1c;
+
+$theme-color: #5f7bcf;
+
+$header-underline-color: $color-2;
+
+$box-shadow: 0 0 15px #000;
+
+@mixin background-opacity($color, $opacity: 0.3) {
+	background: $color; /* The Fallback */
+	background: rgba($color, $opacity);
+}
+@mixin color-opacity($color, $opacity: 0.3) {
+	color: $color; /* The Fallback */
+	color: rgba($color, $opacity);
+}

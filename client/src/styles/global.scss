@@ -1,0 +1,186 @@
+@import "config";
+@import "transitions";
+
+
+body {
+	height: 100%;
+	background-color: transparent !important;
+}
+body, html, #root {
+
+	background: $background-color;
+	margin: 0;
+	padding: 0;
+	color: $color;
+	font-family: "Roboto", sans-serif;
+	position: relative;
+	box-sizing:border-box
+}
+html {
+	overflow-x: hidden;
+	height: 100%;
+	
+}
+html {
+	margin-right: calc(-100vw + 100%);
+}
+
+
+.app {
+
+	position: relative;
+	height: 100%;
+	display: flex;
+	box-sizing: border-box;
+
+
+}
+
+i {
+	color: $color-2;
+}
+
+
+.component {
+	//background-image: url("/bg.jpg");
+	background-size: cover;
+	background-position: center;
+	flex: 1;
+	padding: 20px 20px;
+	position: relative;
+	box-sizing: border-box;
+	& .inner-component {
+		box-sizing: border-box;
+		transition: padding .2s ease-out;
+		//background: $background-color-2;
+		padding: 30px 20px 0 20px;
+		height: 100%;
+		border-radius: $border-radius;
+
+		& .constrict {
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+	}
+}
+
+
+@media screen and (max-width: 1000px) {
+	.component .inner-component {
+		padding: 30px 5px 0 5px;
+	}
+}
+
+
+
+a {
+	color: $theme-color;
+	text-decoration: none;
+	transition: color .15s ease-out;
+
+	&:hover {
+		@include color-opacity($theme-color, .7);
+	}
+}
+
+
+.light-header {
+	font-size: 35px;
+	font-weight: 200;
+	
+}
+h2.light-header {
+	font-size: 27px;
+}
+
+.small-header {
+	font-size: 30px;
+}
+
+
+@media screen and (max-width: 800px) {
+	.light-header {
+		font-size: 25px;
+	}
+	h2.light-header {
+		font-size: 22px;
+	}
+}
+
+
+.underline {
+	display: inline-block;
+	position: relative;
+	$underline-height: 1px;
+	&::before {
+		content: "";
+		bottom: 0;
+		left: 0;
+		transform: scaleX(0) translate(2px, 0 - $underline-height);
+		position: absolute;
+		height: $underline-height;
+		background: $header-underline-color;
+		width: 80px;
+		max-width: 40%;
+		animation-name: slide-in;
+		animation-duration: .15s;
+		animation-delay: .2s;
+		animation-timing-function: ease-in;
+		animation-fill-mode: forwards;
+		transition: width .1s ease-out;
+	}
+
+	&.short-underline::before {
+		width: 30px;
+		max-width: unset;
+	}
+
+	@keyframes slide-in {
+
+		from 	{ transform: scaleX(0) translate(2px, 0 - $underline-height); transform-origin: left; }
+		to 		{ transform: scaleX(1) translate(2px, 0 - $underline-height); transform-origin: left; }
+
+	}
+}
+
+
+
+
+
+.route-wrapper {
+	position: relative;
+}
+
+.route-wrapper > div {
+	position: absolute;
+	width: 100%;
+}
+
+
+.border-box {
+
+	color: $theme-color;
+	border: .5px solid currentColor;
+	border-color: currentColor;
+	padding: 20px;
+}
+
+.input-with-adornment {
+
+	& input {
+		padding-left: 10px;
+	}
+}
+
+
+.inline-buttons button {
+	padding: 10px;
+	min-width: unset;
+}
+
+
+.slight-margin {
+	margin: 5px 0;
+}
+

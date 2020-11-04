@@ -1,0 +1,112 @@
+.x-alerts {
+	$width: 500px;
+	$padding: 20px;
+	position: fixed;
+	bottom: $padding;
+	left: $padding;
+	width: 100%;
+	padding: 0 $padding 0 0 0;
+	box-sizing: border-box;
+	max-width: $width;
+	background: green;
+
+	.x-alert {
+
+		
+		box-sizing: border-box;
+		width: 100%;
+		position: absolute;
+		left: 0px;
+		bottom: 0;
+		padding: 5px 0;
+		
+		transform: translateY(-100%);
+		transition: all var(--duration) var(--timing-function);
+
+		visibility: hidden;
+
+		&.x-alert-shown, &.x-alert-hidden {
+			left: -100%;
+			opacity: 0;
+		}
+
+		&.x-alert-started {
+			visibility: visible;
+		}
+		
+
+		& .x-alert-inner {
+			background: #333;
+			display: flex;
+
+			& .x-alert-progress {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 5px;
+				pointer-events: none;
+				transform: translateY(-100%);
+				&.x-alert-hidden {
+					display: none;
+				}
+				& .x-alert-progress-bar {
+					position: relative;
+					height: 100%;
+					width: 100%;
+					background: currentColor;
+					transition-timing-function: linear;
+					transition-property: transform;
+					transform: scaleX(1);
+					transform-origin: left;
+				}
+				&.x-alert-active .x-alert-progress-bar {
+					transform: scaleX(0);
+				}
+			}
+
+			& .x-alert-column {
+				$padding: 30px;
+				padding: $padding 20px;
+				color: #ccc;
+				&.x-alert-content {
+					
+					flex: 1;
+				}
+				&.x-alert-close {
+					flex: none;
+					padding: 20px;
+					transition: opacity .2s;
+					justify-content: center;
+					cursor: pointer;
+					background: inherit;
+					&:hover {
+						opacity: 0.7;
+					}
+				}
+				&.x-alert-close, &.x-alert-icon {
+					display: flex;
+					align-items: center;
+				}
+				&.x-alert-icon {
+					padding: $padding 0 $padding 20px;
+				}
+			}
+		}
+		&.x-alert-fading {
+			left: -$width - $padding;
+		}
+		&.x-alert-success {
+			color: #49d64b;
+		}
+		&.x-alert-warn {
+			color: #ff9812;
+		}
+		&.x-alert-error {
+			color: #f75931;
+		}
+	}
+
+}
+
+
