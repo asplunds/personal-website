@@ -46,7 +46,7 @@ export default class Index extends Component {
 
                         <Tech />
 
-                        <Button
+                        {false && <Button
                             onClick={this.clickMe}
                             startIcon={<i className="fad fa-grin-squint-tears"></i>}
                             size="large"
@@ -54,7 +54,7 @@ export default class Index extends Component {
                             
                                     Don't click me
                             
-                        </Button>
+                        </Button>}
                     </div>
                 </div>
             </article>

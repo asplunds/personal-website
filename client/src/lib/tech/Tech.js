@@ -2,6 +2,26 @@ import React from "react";
 
 import "../../styles/tech.scss";
 
+import {
+    atom,
+    useRecoilState,
+} from "recoil";
+
+import {
+    Button
+} from "@material-ui/core";
+
+const carasoulIndex = atom({
+    key: "carasoulIndex",
+    default: 0,
+});
+
+const carasoulVisible = atom({
+    key: "carasoulVisible",
+    default: false,
+});
+
+
 export default function Tech() {
 
 
@@ -60,7 +80,7 @@ export default function Tech() {
         <div className="tech-cont">
             <div className="tech-inner">
                 <div className="tech-items-grid">
-                    {tech.map(v => <TechItem {...v} />)}
+                    {tech.map((v, i) => <TechItem {...v} thisIndex={i} />)}
                 </div>
                 
                 <TechCarousel tech={tech} />
@@ -71,12 +91,15 @@ export default function Tech() {
 
 }
 
-function TechItem({name, description, logo, logo2}) {
+function TechItem({name, logo, logo2, thisIndex, alwaysShow}) {
 
+    const [carasoul, setCarasoul] = useRecoilState(carasoulVisible);
+
+    const [, setItem] = useRecoilState(carasoulIndex);
 
 
     return (
-        <div title={name} className="tech-item">
+        <div title={name} className={`tech-item ${carasoul && !alwaysShow ? "tech-item-hidden" : ""}`} onClick={() => setItem(thisIndex) || setCarasoul(true)}>
             <div className="tech-item-inner">
                 <div className="tech-item-movable tech-item-background-color"></div>
                 {logo2 &&
@@ -93,31 +116,64 @@ function TechItem({name, description, logo, logo2}) {
     )
 }
 
+function CarasoulControlButton({ children, transparent }) {
+
+    return (
+        <Button
+            size="small"
+            color="primary"
+            variant="contained"
+            className={transparent && "tech-button-transparent"}
+        >
+            {children}
+        </Button>
+    )
+}
 
 function TechCarousel(props) {
 
     const { tech } = props;
 
-    const [item, setItem] = React.useState(0);
+    const [carasoul, setCarasoul] = useRecoilState(carasoulVisible);
+
+    const [item, setItem] = useRecoilState(carasoulIndex);
 
     const next = () => setItem(tech.length > item + 1 ? item + 1 : 0);
     const prev = () => setItem(0 <= item - 1 ? item - 1 : tech.length - 1);
 
+    const showCarasoul = !carasoul ? "tech-fade-in" : "";
 
     return (
 
         <>
-            <h2>Debug: {item}</h2>
-            <br /><br /><br /><br />
-            <div className="tech-carousel-controls">
+            <div className={`tech-carousel-controls ${showCarasoul}`}>
                 <div className="flexer"></div>
-                <div className="tech-carasousel-control tech-carasoul-control-left" onClick={prev}></div>
-                <div className="tech-carasousel-control tech-carasoul-control-right" onClick={next}></div>
+                <div className="tech-carasousel-control tech-carasoul-control-exit" onClick={() => setCarasoul(false)}>
+                    <CarasoulControlButton transparent>
+                        <div className="tech-carasoul-control-button tech-carasoul-control-button-exit">
+                            <i className="fas fa-th"></i>
+                        </div>
+                    </CarasoulControlButton>
+                </div>
+                <div className="tech-carasousel-control tech-carasoul-control-left" onClick={prev}>
+                    <CarasoulControlButton>
+                        <div className="tech-carasoul-control-button tech-carasoul-control-button-left">
+                            <i className="fad fa-chevron-left"></i>
+                        </div>
+                    </CarasoulControlButton>
+                </div>
+                <div className="tech-carasousel-control tech-carasoul-control-right" onClick={next}>
+                    <CarasoulControlButton>
+                        <div className="tech-carasoul-control-button tech-carasoul-control-button-left">
+                            <i className="fad fa-chevron-right"></i>
+                        </div>
+                    </CarasoulControlButton>
+                </div>
             </div>
-            <div className="tech-carousel" style={{
+            <div className={`tech-carousel ${showCarasoul}`} style={{
                 "transform": `translateX(calc(-100% * ${item} - ${item} * var(--gap-left)))`
             }}>
-                {tech.map((v, i) => <TechCart {...v} current={i === item} />)}
+                {tech.map((v, i) => <TechCart {...v} current={i === item} thisItem={i} />)}
             </div>
 
         </>
@@ -128,14 +184,16 @@ function TechCarousel(props) {
 
 function TechCart(props) {
 
-    const {name, description, logo, logo2, current } = props;
+    const {name, description, current, thisItem } = props;
+
+    const [, setItem] = useRecoilState(carasoulIndex);
 
     return (
-        <div className={`tech-cart-item ${current ? "tech-cart-item-active" : ""}`}>
+        <div onClick={() => setItem(thisItem)} className={`tech-cart-item ${current ? "tech-cart-item-active" : ""}`}>
             <div className="tech-cart-item-inner">
                 <div className="tech-cart-item-hero">
                     <div className="tech-cart-item-logo">
-                        <TechItem {...props} />
+                        <TechItem alwaysShow {...props} />
                     </div>
                     <div className="tech-cart-item-heading">
                         <h1 className="light-header underline">

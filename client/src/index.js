@@ -14,7 +14,7 @@ import Mando from "./views/mando/Mando";
 import E404 from "./views/errors/E404";
 import Faq from "./views/faq/Faq";
 
-
+import { RecoilRoot } from "recoil";
 
 //import Authorize from "./views/authorization/Authorize";
 import { createMuiTheme, MuiThemeProvider  } from '@material-ui/core/styles';
@@ -62,48 +62,50 @@ const bounceTransition = {
 
 
 ReactDOM.render(
-	<Router>
-		<Base>
-		<MuiThemeProvider  theme={theme}>
-			<CssBaseline />
-				<AnimatedSwitch
-					atEnter={bounceTransition.atEnter}
-					atLeave={bounceTransition.atLeave}
-					atActive={bounceTransition.atActive}
-					mapStyles={mapStyles}
-					className="route-wrapper"
-				>
-					<Route path="/" exact>
-						<Index />
-					</Route>
-					<Route path="/mando" exact>
-						<Mando />
-					</Route>
-					<Route path="/faq" exact>
-						<Faq />
-					</Route>
-					{/*
-					<Route path="/hentai" exact>
-						<Authorize child={HentaiIndex} />
-					</Route>
-					<Route path="/hentai/new" exact>
-						<Authorize child={HentaiCreate} />
-					</Route>
-					<Route path="/hentai/edit/:slug" exact render={({ match }) => (
-						<Authorize child={HentaiEdit} match={match} />
-					)} />
-					<Route path="/hentai/upload/:slug" exact render={({ match }) => (
-						<Authorize child={HentaiUpload} match={match} />
-					)} />
-					*/}
-					<Route path="/">
-						<E404 />
-					</Route>
-				</AnimatedSwitch>
-				<AlertContainer duration={200} closeIcon={<i class="fal fa-times"></i>} />
-			</MuiThemeProvider>
-		</Base>
-	</Router>,
+	<RecoilRoot>
+		<Router>
+			<Base>
+			<MuiThemeProvider  theme={theme}>
+				<CssBaseline />
+					<AnimatedSwitch
+						atEnter={bounceTransition.atEnter}
+						atLeave={bounceTransition.atLeave}
+						atActive={bounceTransition.atActive}
+						mapStyles={mapStyles}
+						className="route-wrapper"
+					>
+						<Route path="/" exact>
+							<Index />
+						</Route>
+						<Route path="/mando" exact>
+							<Mando />
+						</Route>
+						<Route path="/faq" exact>
+							<Faq />
+						</Route>
+						{/*
+						<Route path="/hentai" exact>
+							<Authorize child={HentaiIndex} />
+						</Route>
+						<Route path="/hentai/new" exact>
+							<Authorize child={HentaiCreate} />
+						</Route>
+						<Route path="/hentai/edit/:slug" exact render={({ match }) => (
+							<Authorize child={HentaiEdit} match={match} />
+						)} />
+						<Route path="/hentai/upload/:slug" exact render={({ match }) => (
+							<Authorize child={HentaiUpload} match={match} />
+						)} />
+						*/}
+						<Route path="/">
+							<E404 />
+						</Route>
+					</AnimatedSwitch>
+					<AlertContainer duration={200} closeIcon={<i class="fal fa-times"></i>} />
+				</MuiThemeProvider>
+			</Base>
+		</Router>
+	</RecoilRoot>,
 
 	document.getElementById("root")
 );

@@ -25,6 +25,7 @@
     "react-router-transition": "^2.0.0",
     "react-scripts": "3.4.3",
     "react-transition-group": "^4.4.1",
+    "recoil": "^0.1.2",
     "redux": "^4.0.5"
   },
   "scripts": {
