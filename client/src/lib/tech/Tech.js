@@ -18,7 +18,10 @@ const carasoulIndex = atom({
 
 const carasoulVisible = atom({
     key: "carasoulVisible",
-    default: false,
+    default: {
+        active: false,
+        delay: "carasoul"
+    },
 });
 
 
@@ -99,7 +102,9 @@ function TechItem({name, logo, logo2, thisIndex, alwaysShow}) {
 
 
     return (
-        <div title={name} className={`tech-item ${carasoul && !alwaysShow ? "tech-item-hidden" : ""}`} onClick={() => setItem(thisIndex) || setCarasoul(true)}>
+        <div title={name} style={{
+            cursor: alwaysShow ? "initial" : "pointer"
+        }} className={`tech-item ${carasoul.active && !alwaysShow ? "tech-item-hidden" : ""}`} onClick={() => setItem(thisIndex) || setCarasoul({ active: true, delay: "carasoul" })}>
             <div className="tech-item-inner">
                 <div className="tech-item-movable tech-item-background-color"></div>
                 {logo2 &&
@@ -138,17 +143,19 @@ function TechCarousel(props) {
 
     const [item, setItem] = useRecoilState(carasoulIndex);
 
-    const next = () => setItem(tech.length > item + 1 ? item + 1 : 0);
-    const prev = () => setItem(0 <= item - 1 ? item - 1 : tech.length - 1);
+    const next = () => setItem(tech.length > item + 1 ? item + 1 : 0) || setCarasoul({ active: true, delay: "grid"});
+    const prev = () => setItem(0 <= item - 1 ? item - 1 : tech.length - 1) || setCarasoul({ active: true, delay: "grid"});
 
-    const showCarasoul = !carasoul ? "tech-fade-in" : "";
+    console.log(carasoul);
+
+    const showCarasoul = (!carasoul.active ? `tech-fade-in ` : " ") + (carasoul.delay === "carasoul" ? "tech-fade-delay" : "");
 
     return (
 
         <>
             <div className={`tech-carousel-controls ${showCarasoul}`}>
                 <div className="flexer"></div>
-                <div className="tech-carasousel-control tech-carasoul-control-exit" onClick={() => setCarasoul(false)}>
+                <div className="tech-carasousel-control tech-carasoul-control-exit" onClick={() => setCarasoul({ active: false, delay: "grid"})}>
                     <CarasoulControlButton transparent>
                         <div className="tech-carasoul-control-button tech-carasoul-control-button-exit">
                             <i className="fas fa-th"></i>
@@ -188,8 +195,11 @@ function TechCart(props) {
 
     const [, setItem] = useRecoilState(carasoulIndex);
 
+    const [, setCarasoul] = useRecoilState(carasoulVisible);
+
+
     return (
-        <div onClick={() => setItem(thisItem)} className={`tech-cart-item ${current ? "tech-cart-item-active" : ""}`}>
+        <div onClick={() => setItem(thisItem) || setCarasoul({ active: true, delay: "grid" })} className={`tech-cart-item ${current ? "tech-cart-item-active" : ""}`}>
             <div className="tech-cart-item-inner">
                 <div className="tech-cart-item-hero">
                     <div className="tech-cart-item-logo">

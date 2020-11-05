@@ -29,7 +29,7 @@
     position: absolute;
     box-sizing: border-box;
     width: 100%;
-    transition: transform .46s ease-in-out, opacity .2s ease-out .36s;
+    transition: transform .46s ease-in-out, opacity .2s ease-out;
     box-sizing: border-box;
     display: flex;
     --gap-left: 130px;
@@ -202,4 +202,7 @@
 .tech-fade-in {
     opacity: 0;
     pointer-events: none;
+}
+.tech-fade-delay {
+    transition-delay: .4s, .4s;
 }
