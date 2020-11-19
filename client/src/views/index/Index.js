@@ -1,56 +1,44 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
 import { spawnAlert } from "alert";
-import Tech from "../../lib/tech/Tech";
+import Tech from "../../lib/tech/Tech.jsx";
+import HowIwork from "../../lib/HowIwork.js";
+import { Lang } from "../../lib/language/Lang.jsx";
+import Hr from "../../lib/Hr.jsx";
+import Title from "../../lib/Title.jsx";
 
+import View from "../View.jsx";
 
-import {
-	Link,
-} from "react-router-dom";
+import Space from "give-me-space";
+
+import Wave from "../../lib/Wave.jsx"
 
 export default class Index extends Component {
 
     render() {
 
-        return (
-            <article className="index-page">
-                <div className="constrict">
-                    <div>
-                        <div>
-                            <h1 className="light-header underline slight-margin">
-                                Hi <span role="img" aria-label="wave">👋</span>
-                            </h1>
-                        </div>
-                        <p>
-                            I'm Jonathan Asplund, a 16 year old swedish high school student and part time junior full stack developer. I love creating powerful web applications using the newest technologies.
-                        </p>
-                        <p>
-                            Want to contact me? Don't hesitate to ask anything on my e-mail adress <a href="mailto:jonathan@asplund.net">jonathan@asplund.net</a>
-                        </p>
-                        <h2 className="light-header underline slight-margin">
-                            How I work
-                        </h2>
-                        <p>
-                            As a developer I always strive to write top quality code which is why I love using technologies such as <a href="https://www.typescriptlang.org/">TypeScript</a>, <a href="https://jsdoc.app/index.html">JSDoc</a> and <a href="https://swagger.io/">Swagger</a>. I believe a good program sits on good code. My style of programming is always looking for the best solution in terms of reusability, flexibility and maintainability. Therefore I believe strongly in a functional approach to programming problems, with this method the application avoids repetetive code and enables reusability. With that said I don't have any problems using an object oriented style, I think     it's important to find the most optimal solution for the task.
-                        </p>
-                        <p>
-                            I'm an active proponent of collaboration in my it's imperative to have good communication with team members in order to produce the best results. Asking and giving help or advice is something I strongly believe in. 
-                        </p>
-                        <Tech />
-
-                        {false && <Button
-                            onClick={this.clickMe}
-                            startIcon={<i className="fad fa-grin-squint-tears"></i>}
-                            size="large"
-                        >
-                            
-                                    Don't click me
-                            
-                        </Button>}
-                    </div>
+        return <>
+            <Wave />
+            <View>
+                <Space />
+                <div>
+                    <Title type={1}>
+                        <Lang langKey="FRONT_PAGE_GREETING" />{" "}
+                        <span role="img" aria-label="wave">👋</span>
+                        <Lang langKey="FRONT_PAGE_GREETING_POST_EMOJI" />
+                    </Title>
                 </div>
-            </article>
-        )
+                <p>
+                    <Lang langKey="FRONT_PAGE_INTRODUCTION" />
+                </p>
+                <p>
+                    <Lang langKey="FRONT_PAGE_CONTACT_SHORT_PARAGRAPH" />
+                </p>
+                <Hr />
+                <Tech />
+                <Hr />
+                <HowIwork />
+            </View>
+        </>
 
     }
 
@@ -74,3 +62,4 @@ export default class Index extends Component {
     }
 
 }
+

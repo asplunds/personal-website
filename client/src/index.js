@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import Base from "./views/Base.js";
 
 import {
@@ -10,18 +11,20 @@ import {
 import { AnimatedSwitch } from "react-router-transition";
 
 import Index from "./views/index/Index";
-import Mando from "./views/mando/Mando";
 import E404 from "./views/errors/E404";
 import Faq from "./views/faq/Faq";
 
 import { RecoilRoot } from "recoil";
 
-//import Authorize from "./views/authorization/Authorize";
 import { createMuiTheme, MuiThemeProvider  } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
+
 import { AlertContainer } from "alert";
 
+import bounceTransition from "./lib/pageTransition";
+
 import * as serviceWorker from "./serviceWorker";
+
 
 const theme = createMuiTheme({
 	palette: {
@@ -37,29 +40,6 @@ const theme = createMuiTheme({
 		}
 	},
 });
-
-const bounceTransition = {
-		// start in a transparent, upscaled state
-		atEnter: {
-		opacity: 0,
-		scale: 20,
-		zIndex: 2
-	},
-		// leave in a transparent, downscaled state
-		atLeave: {
-		opacity: 0,
-		scale: -20,
-		zIndex: 1
-	},
-		// and rest at an opaque, normally-scaled state
-		atActive: {
-		opacity: 1,
-		scale: 0,
-		zIndex: 2
-	},
-};
-
-
 
 ReactDOM.render(
 	<RecoilRoot>
@@ -77,26 +57,9 @@ ReactDOM.render(
 						<Route path="/" exact>
 							<Index />
 						</Route>
-						<Route path="/mando" exact>
-							<Mando />
-						</Route>
 						<Route path="/faq" exact>
 							<Faq />
 						</Route>
-						{/*
-						<Route path="/hentai" exact>
-							<Authorize child={HentaiIndex} />
-						</Route>
-						<Route path="/hentai/new" exact>
-							<Authorize child={HentaiCreate} />
-						</Route>
-						<Route path="/hentai/edit/:slug" exact render={({ match }) => (
-							<Authorize child={HentaiEdit} match={match} />
-						)} />
-						<Route path="/hentai/upload/:slug" exact render={({ match }) => (
-							<Authorize child={HentaiUpload} match={match} />
-						)} />
-						*/}
 						<Route path="/">
 							<E404 />
 						</Route>

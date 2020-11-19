@@ -1,0 +1,25 @@
+{
+  "name": "give-me-space",
+  "version": "1.0.0",
+  "description": "Calculate the space top the nearest previous sibling",
+  "main": "Space.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "give",
+    "me",
+    "space",
+    "calculate",
+    "space",
+    "space",
+    "spacing",
+    "react",
+    "reactjs",
+    "component",
+    "remaining",
+    "space"
+  ],
+  "author": "Jonathan Asplund",
+  "license": "ISC"
+}

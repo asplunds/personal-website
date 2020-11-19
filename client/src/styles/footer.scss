@@ -1,0 +1,36 @@
+@import "config";
+
+
+.footer-ul {
+    padding: 20px 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li {
+        $space: 35px;
+        margin: 0;
+        padding: 0;
+        font-size: 2rem;
+        padding-left: $space;
+        position: relative;
+        &::before {
+            content: "•";
+            color: $color;
+            opacity: 0.5;
+            position: absolute;
+            left: ($space / 2);
+            transform: translateX(-50%)
+        }
+
+        &:first-child {
+            padding-left: 0;
+            &::before {
+                content: unset;
+            }
+        }
+    }
+}

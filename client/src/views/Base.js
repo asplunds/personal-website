@@ -17,27 +17,25 @@ const darkTheme = createMuiTheme({
 
 Progress.go();
 
+
+
 export default class Base extends Component {
 
 
 	render() {
-		console.log(this.props.children);
+
 		return (
 			<ThemeProvider theme={darkTheme}>
 				<div className="app">
-
 					<Header history={this.props.history} />
 
 					<main className="component">
-
 						<section className="inner-component">
 
 							{this.props.children}
 						
 						</section>
-
 					</main>
-
 				</div>
 			</ThemeProvider>
 		)

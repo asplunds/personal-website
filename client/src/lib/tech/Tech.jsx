@@ -2,21 +2,26 @@ import React from "react";
 
 import "../../styles/tech.scss";
 
+import tech from "./technologies";
+import TechItem from "./TechItem";
+import CarasoulControlButton from "./TechCarasoulButton";
+
+
 import {
     atom,
     useRecoilState,
+    useRecoilValue
 } from "recoil";
 
-import {
-    Button
-} from "@material-ui/core";
+import { Lang } from "../language/Lang.jsx";
 
-const carasoulIndex = atom({
+
+export const carasoulIndex = atom({
     key: "carasoulIndex",
     default: 0,
 });
 
-const carasoulVisible = atom({
+export const carasoulVisible = atom({
     key: "carasoulVisible",
     default: {
         active: false,
@@ -27,113 +32,35 @@ const carasoulVisible = atom({
 
 export default function Tech() {
 
+    const carasoulVisibleState = useRecoilValue(carasoulVisible);
 
-    const tech = [
-        {
-            name: "Javascript",
-            description: "lol",
-            logo: "images/js-logo.png",
-            logo2: "images/js-logo-2.png"
-        },
-        {
-            name: "Typescript",
-            description: "lol",
-            logo: "images/typescript-logo-2.png",
-            logo2: "images/typescript-logo.png"
-        },
-        {
-            name: "Node JS",
-            description: "lol",
-            logo: "images/node-js-logo.svg"
-        },
-        {
-            name: "Docker",
-            description: "lol",
-            logo: "images/docker-logo.png"
-        },
-        {
-            name: "React",
-            description: "lol",
-            logo: "images/react-logo.png"
-        },
-        {
-            name: "Sass",
-            description: "lol",
-            logo: "images/sass-logo.png"
-        },
-        {
-            name: "PHP",
-            description: "lol",
-            logo: "images/php-logo.png"
-        },
-        {
-            name: "Mongo DB",
-            description: "lol",
-            logo: "images/mongo-db-logo.png"
-        },
-        {
-            name: "Java",
-            description: "lol",
-            logo: "images/java-logo.png"
-        }
-    ];
+    
+    return <>
+        
+        <h2 className="light-header underline slight-margin">
+            <Lang langKey="TECH_TITLE" />
+        </h2>
 
-    return (
-
-        <div className="tech-cont">
+        <p>
+            <Lang langKey="TECH_HINT_CLICK" />
+        </p>
+        <div className={`tech-cont ${carasoulVisibleState ? "carasoul-visible" : ""}`}>
             <div className="tech-inner">
                 <div className="tech-items-grid">
-                    {tech.map((v, i) => <TechItem {...v} thisIndex={i} />)}
+                    {tech.map((v, i) => <TechItem key={i} {...v} thisIndex={i} />)}
                 </div>
                 
                 <TechCarousel tech={tech} />
             </div>
         </div>
 
-    );
+    </>
 
 }
 
-function TechItem({name, logo, logo2, thisIndex, alwaysShow}) {
-
-    const [carasoul, setCarasoul] = useRecoilState(carasoulVisible);
-
-    const [, setItem] = useRecoilState(carasoulIndex);
 
 
-    return (
-        <div title={name} style={{
-            cursor: alwaysShow ? "initial" : "pointer"
-        }} className={`tech-item ${carasoul.active && !alwaysShow ? "tech-item-hidden" : ""}`} onClick={() => setItem(thisIndex) || setCarasoul({ active: true, delay: "carasoul" })}>
-            <div className="tech-item-inner">
-                <div className="tech-item-movable tech-item-background-color"></div>
-                {logo2 &&
-                    <div className="tech-item-movable tech-item-content logo-item-content-2" style={{
-                        backgroundImage: `url(${process.env.PUBLIC_URL}/${logo2})`
-                    }}></div>
-                }
-                <div className={`tech-item-movable tech-item-content ${logo2 ? "tech-item-has-logo-2" : ""}`} style={{
-                    backgroundImage: `url(${process.env.PUBLIC_URL}/${logo})`
-                }}></div>
-                
-            </div>
-        </div>
-    )
-}
 
-function CarasoulControlButton({ children, transparent }) {
-
-    return (
-        <Button
-            size="small"
-            color="primary"
-            variant="contained"
-            className={transparent && "tech-button-transparent"}
-        >
-            {children}
-        </Button>
-    )
-}
 
 function TechCarousel(props) {
 
@@ -145,8 +72,6 @@ function TechCarousel(props) {
 
     const next = () => setItem(tech.length > item + 1 ? item + 1 : 0) || setCarasoul({ active: true, delay: "grid"});
     const prev = () => setItem(0 <= item - 1 ? item - 1 : tech.length - 1) || setCarasoul({ active: true, delay: "grid"});
-
-    console.log(carasoul);
 
     const showCarasoul = (!carasoul.active ? `tech-fade-in ` : " ") + (carasoul.delay === "carasoul" ? "tech-fade-delay" : "");
 
@@ -180,7 +105,7 @@ function TechCarousel(props) {
             <div className={`tech-carousel ${showCarasoul}`} style={{
                 "transform": `translateX(calc(-100% * ${item} - ${item} * var(--gap-left)))`
             }}>
-                {tech.map((v, i) => <TechCart {...v} current={i === item} thisItem={i} />)}
+                {tech.map((v, i) => <TechCart {...v} key={i} current={i === item} thisItem={i} />)}
             </div>
 
         </>

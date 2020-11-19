@@ -37,10 +37,11 @@ html {
 
 
 }
-
-i {
-	color: $color-2;
+p {
+	line-height: 1.5;
+	font-size: 1.06rem;
 }
+
 
 
 .component {
@@ -48,29 +49,44 @@ i {
 	background-size: cover;
 	background-position: center;
 	flex: 1;
-	padding: 20px 20px;
+	padding: 0;
 	position: relative;
 	box-sizing: border-box;
-	& .inner-component {
+	.inner-component {
 		box-sizing: border-box;
 		transition: padding .2s ease-out;
 		//background: $background-color-2;
-		padding: 30px 20px 0 20px;
+		padding: 0;
 		height: 100%;
 		border-radius: $border-radius;
 
-		& .constrict {
-			max-width: 700px;
+		.constrict {
+			max-width: $page-constrict;
 			margin: 0 auto;
+			padding: 0 $page-gap;
 		}
 
 	}
+
+	.footer {
+		background: darken($background-color-2, 5%);
+
+		.footer-inner {
+			width: 100%;
+			padding: 20px $page-gap;
+			margin: 20px auto 0 auto;
+			max-width: $page-constrict;
+			box-sizing: border-box;
+			
+		}
+	}
+
 }
 
 
 @media screen and (max-width: 1000px) {
 	.component .inner-component {
-		padding: 30px 5px 0 5px;
+		
 	}
 }
 
@@ -94,6 +110,9 @@ a {
 }
 h2.light-header {
 	font-size: 27px;
+}
+h3.light-header {
+	font-size: 22px;
 }
 
 .small-header {
@@ -144,6 +163,10 @@ h2.light-header {
 		to 		{ transform: scaleX(1) translate(2px, 0 - $underline-height); transform-origin: left; }
 
 	}
+}
+h3.underline::before {
+	width: 50px;
+	max-width: 30%;
 }
 
 

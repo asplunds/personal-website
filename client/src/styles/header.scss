@@ -5,6 +5,10 @@
 	top: 10px;
 	left: 10px;
 	z-index: 100;
+
+	& .MuiIconButton-colorPrimary {
+		background: change-color($background-color-2, $alpha: 0.3);
+	}
 }
 
 header {
@@ -14,7 +18,7 @@ header {
 	width: $width;
 	max-width: $width;
 	position: relative;
-	transition: width .3s cubic-bezier(.45,-0.04,.2,1);
+	transition: width .45s cubic-bezier(.45,-0.04,.2,1);
 
 	
 	& .header-fixed {
@@ -54,14 +58,14 @@ header {
 			width: 4px;
 			background: $theme-color;
 			height: 100%;
-			transform: translateX(-100%);
+			transform: scaleY(0);
 			transition: transform .1s ease-out;
 		}
 
 		
 		&:hover::before, &.header-item-active::before {
 
-			transform: translateX(0);
+			transform: scaleY(.6);
 
 		}
 		&:hover {
@@ -71,6 +75,10 @@ header {
 				color: $theme-color;
 			}
 			
+		}
+
+		&.header-item-active::before {
+			transform: translateX(0) scaleY(1);
 		}
 
 		& .header-item-flex {
@@ -111,6 +119,10 @@ header {
 
 	&.header-menu-closed {
 		width: 0;
+	}
+
+	i {
+		color: $color-2;
 	}
 
 }

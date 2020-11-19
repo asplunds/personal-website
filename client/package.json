@@ -13,8 +13,8 @@
     "axios": "^0.20.0",
     "config": "file:src/lib/config",
     "eslint": "^6.6.0",
+    "give-me-space": "file:src/lib/give-me-space",
     "history": "^5.0.0",
-    "moment": "^2.28.0",
     "node-sass": "^4.14.1",
     "progress": "file:src/lib/progress",
     "react": "^16.13.1",
@@ -26,7 +26,8 @@
     "react-scripts": "3.4.3",
     "react-transition-group": "^4.4.1",
     "recoil": "^0.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "tappify": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
